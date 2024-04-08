@@ -1,5 +1,5 @@
 .header {
-    @apply mx-auto my-5 w-40 max-h-96 bg-white text-white sm:mx-auto md:m-5 ;
+    @apply mx-auto my-5 w-40 max-h-96 bg-white text-white sm:mx-auto md:m-5;
 }
 
 .sticky {

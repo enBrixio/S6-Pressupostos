@@ -1,16 +1,16 @@
 import React from 'react';
 
-function Services(prop) {
-  return (
+function BudgetFormItems({product, price, description}) {    
+    return (
 <div className='container mx-auto justify-center max-w-6xl'>
   <div className='grid grid-cols-1 gap-4 mt-5 mx-20 justify-center'>
     <div className='grid grid-cols-3 bg-white p-4 rounded-3xl shadow-custom h-48 flex items-center'>
       <div>
-      <h2 className='text-2xl mx-5'>Service {1}</h2>
-      <p className='mx-5'>esto es una prueba </p>
+      <h2 className='text-3xl font-semibold mx-5'>{product}</h2>
+      <p className='mx-5'>{description} </p>
       </div>
       
-      <p className='font-bold text-3xl text-center'>300€</p>
+      <p className='font-bold text-3xl text-center'>{price}<span className='text-xl'> €</span></p>
       <label className="cursor-pointer flex justify-center items-center">
         <input
           type="checkbox"
@@ -22,7 +22,7 @@ function Services(prop) {
     </div>
   </div>
 </div>
-
-  );
+    );
 }
-export default Services;
+
+export default BudgetFormItems;
