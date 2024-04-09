@@ -1,3 +1,4 @@
+import React from "react";
 import BudgetFormItems from "../BudgetFormItems/BudgetFormItems";
 
 function BudgetForm() {
