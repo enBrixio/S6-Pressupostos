@@ -1,10 +1,11 @@
 import React from 'react'
-import Header from './components/header/Header'
-import Banner from './components/banner/Banner'
-import BudgetForm from './components/BudgetForm/BudgetForm'
-import BudgetTotal from './components/BudgetTotal/BudgetTotal'
+import Header from './components/Header'
+import Banner from './components/Banner'
+import BudgetForm from './components/BudgetForm'
+import BudgetTotal from './components/BudgetTotal'
 import { useContext } from 'react'
 import { MyContext, MyProvider } from './context/MyContext'
+import BudgetWepPages from './components/BudgetWepPages'
 
 
 function App () {
@@ -16,6 +17,7 @@ function App () {
     <Banner />
     <BudgetForm />
     <BudgetTotal total={1200}/>
+    <BudgetWepPages />
     </MyProvider>
  
     </>

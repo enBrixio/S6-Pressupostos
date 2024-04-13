@@ -1,7 +1,0 @@
-.header {
-    @apply mx-auto my-5 w-40 max-h-96 bg-white text-white sm:mx-auto md:m-5;
-}
-
-.sticky {
-    @apply fixed top-0 left-0 right-0 z-50 bg-white ;
-}

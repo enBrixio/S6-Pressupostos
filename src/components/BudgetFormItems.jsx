@@ -1,5 +1,5 @@
 import{useState, useContext} from 'react';
-import { MyContext } from '../../context/MyContext';
+import { MyContext } from '../context/MyContext';
 import React from 'react';
 
 function BudgetFormItems({product, price, description}) {   
