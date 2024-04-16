@@ -1,26 +1,27 @@
-import React from 'react'
-import Header from './components/Header'
-import Banner from './components/Banner'
-import BudgetForm from './components/BudgetForm'
-import BudgetTotal from './components/BudgetTotal'
-import { useContext } from 'react'
-import { MyContext, MyProvider } from './context/MyContext'
-import BudgetWepPages from './components/BudgetWepPages'
+import React, { useContext } from 'react';
+import Header from './components/Header';
+import Banner from './components/Banner';
+import BudgetForm from './components/BudgetForm';
+import BudgetTotal from './components/BudgetTotal';
+import BudgetWepPages from './components/BudgetWebPages';
+import { MyProvider, MyContext } from './context/MyContext';
 
+function App() {
+  const { showWebPages } = useContext(MyContext);  // Asume que MyContext provee un valor showWebPages
 
-function App () {
-  const myContext = useContext(MyContext)
-    return (
+  return (
     <>
-    <MyProvider>
-    <Header />
-    <Banner />
-    <BudgetForm />
-    <BudgetTotal total={1200}/>
-    <BudgetWepPages />
-    </MyProvider>
- 
+    
+      <Header />
+      <Banner />
+      <BudgetForm />
+      <BudgetTotal total={1200} />
+
+    
     </>
-  )
+    
+  );
 }
-export default App
+
+export default App;
+
