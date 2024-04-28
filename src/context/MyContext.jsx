@@ -1,55 +1,43 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useBudget } from '../hooks/useBudget';
+import { useData } from '../hooks/useData';
+import { useCheck } from '../hooks/useChek';
+import { useInputs } from '../hooks/useInputs';
+
 
 export const MyContext = createContext();
 
+
 export const MyProvider = ({ children }) => {
-    const [selectedPrices, setSelectedPrices] = useState([]);
-    const [showWebPages, setShowWebPages] = useState(false);
-    const [numPages, setNumPages] = useState(0);
-    const [numLanguages, setNumLanguages] = useState(0);
-    const [webPagesTotal, setWebPagesTotal] = useState(0); // Nuevo estado para el total de páginas web
+    const {
+        setInputPage,
+        setInputLanguage,
+        inputPage,
+        inputLanguage,
+        resetInputsOnCondition,
+        inputFunction,
+        ...inputs
+    } = useInputs();
 
-    // Función para calcular el precio de páginas web
-    const calculateWebPagesTotal = (pages, languages) => {
-        const total = (pages + languages) * 30;
-        setWebPagesTotal(total);
-        updateTotalPrices();
-    };
+    const budget = useBudget();
+    const data = useData();
+    const check = useCheck(inputPage, inputLanguage, resetInputsOnCondition, inputFunction);
 
-    // Función para agregar un precio al total
-    const addPrice = (price) => {
-        setSelectedPrices(current => [...new Set([...current, price])]);
-    };
-
-    // Función para remover un precio del total
-    const removePrice = (price) => {
-        setSelectedPrices(current => current.filter(p => p !== price));
-    };
-
-    // Función para actualizar los precios seleccionados incluyendo el total de web pages
-    const updateTotalPrices = () => {
-        const newTotal = [...selectedPrices, webPagesTotal];
-        setSelectedPrices(newTotal);
+    const value = {
+        setInputPage,  // Asegúrate de que esto está siendo explícitamente incluido
+        setInputLanguage,
+        inputPage,
+        inputLanguage,
+        inputFunction,
+        ...budget,
+        ...data,
+        ...check,
+        ...inputs
     };
 
     return (
-        <MyContext.Provider value={{
-            selectedPrices,
-            addPrice,
-            removePrice,
-            showWebPages,
-            numPages,
-            setNumPages,
-            numLanguages,
-            setNumLanguages,
-            calculateWebPagesTotal
-        }}>
+        <MyContext.Provider value={value}>
             {children}
         </MyContext.Provider>
     );
 };
-
-export default MyProvider;
-
-
-

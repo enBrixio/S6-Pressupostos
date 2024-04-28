@@ -1,21 +1,17 @@
 import React, { useContext } from 'react';
-import BudgetFormItems from './BudgetFormItems';
-import BudgetWebPages from './BudgetWebPages';
-import { dataBudget } from '../data/dataBudget';
-import { MyContext } from '../context/MyContext'; // Importar MyContext
+import BudgetFormItems from '../components/BudgetFormItems';
+import { MyContext } from '../context/MyContext';
+
 
 function BudgetForm() {
-    const { showWebPages } = useContext(MyContext); // Usar useContext para acceder al estado
+    const { data } = useContext(MyContext);
 
     return (
         <form>
-            {dataBudget.map(item => (
+            {data.map(item => (
                 <BudgetFormItems
                     key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    price={item.price}
-                    description={item.description}
+                    item={item}
                 />
             ))}
         </form>
