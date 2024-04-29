@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { MyProvider } from './context/MyContext'; // Asegúrate de que esta importación sea correcta
+import { MyProvider } from './context/MyContext'; 
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <MyProvider>
       <App />
     </MyProvider>
-  </React.StrictMode>
+  </BrowserRouter>
 );
 
 

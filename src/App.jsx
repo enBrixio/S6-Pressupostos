@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from './components/Header';
-import Banner from './components/Banner';
-import BudgetForm from './components/BudgetForm';
-import BudgetTotal from './components/BudgetTotal';
+import Home from './components/Home';
+import { Routes, Route } from 'react-router-dom';
+import BudgetPages from './components/BudgetPages';
+import { MyProvider } from './context/MyContext';
+import { MyContext } from './context/MyContext';
 
 
 function App() {
@@ -11,9 +13,10 @@ function App() {
     <>
     
       <Header />
-      <Banner />
-      <BudgetForm />
-      <BudgetTotal/>
+      <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/presupuestos" element={<BudgetPages />} />
+      </Routes>
 
     
     </>

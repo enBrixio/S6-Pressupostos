@@ -7,6 +7,7 @@ export function useCheck(inputPage, inputLanguage) {
   const [checkedItems, setCheckedItems] = useState({});
   const [resultado, setResultado] = useState(0);
   const [prevInputPage, setPrevInputPage] = useState(inputPage);
+  const [prevInputLanguage, setPrevInputLanguage] = useState(inputLanguage);
 
   useEffect(() => {
     const allUnchecked = Object.values(checkedItems).every(val => val === false);
@@ -14,13 +15,14 @@ export function useCheck(inputPage, inputLanguage) {
       setResultado(0);
       inputFunction(3, false);
     }
-    if (prevInputPage < inputPage) {
+    if (prevInputPage < inputPage || prevInputLanguage < inputLanguage) {
       setResultado(prev => prev + 30);
-    } else if (prevInputPage > inputPage) {
+    } else if (prevInputPage > inputPage || prevInputLanguage > inputLanguage) {
       setResultado(prev => prev - 30);
     }
     setPrevInputPage(inputPage);
-  }, [inputPage, inputLanguage, setCheckedItems, checkedItems, resultado, prevInputPage, inputFunction]);
+    setPrevInputLanguage(inputLanguage);
+  }, [inputPage, inputLanguage, setCheckedItems, checkedItems, resultado, prevInputPage, prevInputLanguage, inputFunction]);
 
   const updateItemCheck = (itemId, itemPrice, isChecked) => {
     console.log("Input Page:", inputPage, "Item Price:", itemPrice, "Is Checked:", isChecked);
