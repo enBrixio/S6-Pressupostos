@@ -11,9 +11,10 @@ function BudgetFormItems({ item }) {
 
   const handleCheckboxChange = (event) => {
     const isChecked = event.target.checked;
-    updateItemCheck(item.id, item.price, isChecked);
+    updateItemCheck(item.id, item.price, isChecked, item.title);
     inputFunction(item.id, isChecked);
-  };
+};
+
 
 
   return (
@@ -31,23 +32,25 @@ function BudgetFormItems({ item }) {
             <label className="cursor-pointer">
             <input
   type="checkbox"
-  checked={checkedItems[item.id] || false}
-  onChange={(event) => handleCheckboxChange(event, item)}
+  checked={checkedItems[item.id]?.isChecked || false}
+  onChange={handleCheckboxChange}
   className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
   name='Añadir'
 />
+
               <span className='mx-5'>Añadir</span>
             </label>
 
 
           </div>
           <div className='col-span-3 flex flex-row justify-end'>
-  {checkedItems[item.id] && data[2].id === item.id  &&
-    <div className=' mb-20 me-20'>
+  {checkedItems[item.id] && checkedItems[item.id].isChecked && data[2].id === item.id &&
+    <div className='mb-20 me-20'>
       <BudgetWebPages />
     </div>
   } 
 </div>
+
 
         </div>
       </div>

@@ -5,26 +5,14 @@ import { useCheck } from '../hooks/useChek';
 import { data } from 'autoprefixer';
 
 function BudgetCreateForm() {
-    const [message, setMessage] = useState(''); 
-    // Estado para el formuclario actual
-    const {resultado, inputPage, inputLanguage, checkedItems} = useContext(MyContext);
-    const [currentForm, setCurrentForm] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        total: resultado,
-        numPages: inputPage,
-        numLang: inputLanguage,
-        title: data.title,
-    });
-  
+    const {resultado, inputPage, inputLanguage, checkedItems, message} = useContext(MyContext);
+    const { setFormData, currentForm, setCurrentForm, setMessage } = useContext(MyContext);
     useEffect(() => {
         setCurrentForm(prevForm => ({
             ...prevForm,
             total: resultado,
             numPages: inputPage,
             numLang: inputLanguage,
-            title: checkedItems === true ? data.title : ''  // Asumiendo que quieres guardar esto en una propiedad llamada 'title'
         }));
     }, [resultado, inputPage, inputLanguage, checkedItems]); // Asegúrate de incluir checkedItems en las dependencias si su valor afecta el efecto
     
@@ -38,8 +26,7 @@ function BudgetCreateForm() {
         return () => clearTimeout(timer);
     }, [message]);
     
-    // Estado para todos los formularios
-    const [formData, setFormData] = useState([]);
+
   
     // Función para manejar los cambios en el formulario actual
     const handleChange = (event) => {
@@ -50,17 +37,29 @@ function BudgetCreateForm() {
         }));
     };
   
-    // Función para manejar el envío del formulario
     const handleSubmit = (event) => {
-        event.preventDefault();  // Previene la recarga de la página
+        event.preventDefault();
+        const itemsWithTitles = Object.entries(checkedItems)
+            .filter(([key, value]) => value.isChecked)
+            .map(([key, { title }]) => ({ id: key, title }));
+    
+        const formWithTitles = {
+          ...currentForm,
+          items: itemsWithTitles
+        };
+    
         setFormData(prevState => {
-            const newFormData = [...prevState, currentForm];
-            console.log(newFormData); // Ahora muestra el estado actualizado
-            return newFormData;
+            const updatedFormData = [...prevState, formWithTitles];
+            console.log("Updated formData:", updatedFormData); // Verifica el contenido del nuevo estado
+            return updatedFormData;
         });
-        setCurrentForm({ name: '', phone: '', email: '' }); // Limpia el formulario actual
-        setMessage("Formulario enviado satisfactoriamente") 
+    
+        setCurrentForm({ name: '', phone: '', email: '', items: [] });
+        setMessage("Formulario enviado satisfactoriamente");
     };
+    
+    
+    
 
     return (
         <form>

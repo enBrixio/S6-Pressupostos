@@ -10,33 +10,41 @@ export function useCheck(inputPage, inputLanguage) {
   const [prevInputLanguage, setPrevInputLanguage] = useState(inputLanguage);
 
   useEffect(() => {
-    const allUnchecked = Object.values(checkedItems).every(val => val === false);
+    const allUnchecked = Object.values(checkedItems).every(val => !val.isChecked);
     if (allUnchecked) {
-      setResultado(0);
-      inputFunction(3, false);
+      setResultado(0);  // Asegura que el resultado se reinicie si todos están desmarcados
     }
-    if (prevInputPage < inputPage || prevInputLanguage < inputLanguage) {
-      setResultado(prev => prev + 30);
-    } else if (prevInputPage > inputPage || prevInputLanguage > inputLanguage) {
-      setResultado(prev => prev - 30);
+
+    // Considerar solo cambios en cantidad de páginas o idiomas si afectan el resultado
+    if (inputPage !== prevInputPage || inputLanguage !== prevInputLanguage) {
+      let tempResult = resultado;
+      if (inputPage > prevInputPage || inputLanguage > prevInputLanguage) {
+        tempResult += 30;  // Ajusta esta cantidad según tu lógica de negocio
+      } else {
+        tempResult -= 30;  // Ajusta esta cantidad según tu lógica de negocio
+      }
+      setResultado(tempResult);
     }
+
     setPrevInputPage(inputPage);
     setPrevInputLanguage(inputLanguage);
-  }, [inputPage, inputLanguage, setCheckedItems, checkedItems, resultado, prevInputPage, prevInputLanguage, inputFunction]);
+  }, [inputPage, inputLanguage, checkedItems]);
 
-  const updateItemCheck = (itemId, itemPrice, isChecked) => {
-    console.log("Input Page:", inputPage, "Item Price:", itemPrice, "Is Checked:", isChecked);
+
+  const updateItemCheck = (itemId, itemPrice, isChecked, itemTitle) => {
     setCheckedItems(prev => ({
       ...prev,
-      [itemId]: isChecked
+      [itemId]: { isChecked, title: isChecked ? itemTitle : "" }
     }));
+    // Actualiza el resultado sumando o restando según el checkbox esté marcado o no
     if (isChecked) {
       setResultado(prevResultado => prevResultado + itemPrice);
     } else {
       setResultado(prevResultado => prevResultado - itemPrice);
     }
-  
-  };
+};
+
+
 
   return {
     checkedItems,
