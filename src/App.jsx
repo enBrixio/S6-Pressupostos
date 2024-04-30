@@ -3,8 +3,8 @@ import Header from './components/Header';
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
 import BudgetPages from './components/BudgetPages';
-import { MyProvider } from './context/MyContext';
-import { MyContext } from './context/MyContext';
+import Footer from './components/Footer';
+
 
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/presupuestos" element={<BudgetPages />} />
       </Routes>
+      <Footer />
+
 
     
     </>
