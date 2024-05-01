@@ -6,6 +6,7 @@ import { useInputs } from '../hooks/useInputs';
 import { useState } from 'react';
 
 
+
 export const MyContext = createContext();
 
 
@@ -25,6 +26,17 @@ export const MyProvider = ({ children }) => {
     const budget = useBudget();
     const data = useData();
     const check = useCheck(inputPage, inputLanguage, resetInputsOnCondition, inputFunction);
+
+    const [open, setOpen] = useState(false)
+    const [currentModalType, setCurrentModalType] = useState(null);
+
+
+    const openModal = (modalType) => {
+        console.log("Opening modal with type:", modalType);
+        setCurrentModalType(modalType); // Guardamos el tipo de modal
+        setOpen(true);
+    };
+    const closeModal = () => setOpen(false)
 
     const [message, setMessage] = useState(''); 
     const [formData, setFormData] = useState([]);
@@ -47,13 +59,18 @@ export const MyProvider = ({ children }) => {
         ...data,
         ...check,
         ...inputs,
-        message,
         setMessage,
         formData,
         setFormData,
         currentForm,
         setCurrentForm,
         message,
+        setOpen,
+        open,
+        openModal,
+        closeModal,
+        currentModalType,
+        setCurrentModalType,
 
     };
 

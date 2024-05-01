@@ -34,7 +34,7 @@ function BudgetFormItems({ item }) {
   type="checkbox"
   checked={checkedItems[item.id]?.isChecked || false}
   onChange={handleCheckboxChange}
-  className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+  className="accent-green-500 form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
   name='Añadir'
 />
 
